@@ -1,3 +1,5 @@
+import { DesktopDatePicker , LocalizationProvider} from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { Component } from "react";
 import { Button, TextField } from "@mui/material";
 
@@ -6,6 +8,7 @@ class AddTodo extends Component {
   constructor() {
     super();
     this.state = {
+      due: null,
       content: "",
       date: ""
     };
@@ -25,6 +28,7 @@ class AddTodo extends Component {
   // in the Home.js file which then adds the input into the list.
   handleSubmit = (event) => {
     event.preventDefault();
+    
     if (this.state.content.trim()) {
       this.props.addTodo(this.state);
       this.setState({
@@ -33,6 +37,14 @@ class AddTodo extends Component {
       });
     }
   };
+  
+  handleDatepicker = (event) => {
+    this.setState({
+      due: new Date(event).toLocaleDateString()
+    });
+  };
+
+
   render() {
     return (
       // 1. When rendering a component, you can render as many elements as you like as long as it is wrapped inside
@@ -48,7 +60,18 @@ class AddTodo extends Component {
           variant="outlined"
           onChange={this.handleChange}
           value={this.state.content}
+
         />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>         
+          <DesktopDatePicker
+            id="new-item-date"
+            label="Due Date"
+            value={this.state.due}
+            onChange={this.handleDatepicker}
+            renderInput={(params) => <TextField {...params} />}
+            onSubmit={this.due = null}
+        />
+        </LocalizationProvider>
         <Button
           style={{ marginLeft: "10px" }}
           onClick={this.handleSubmit}

@@ -101,6 +101,7 @@ test('test that App component renders Task', () => {
     + No duplicate task
     + Submit Task with No Due Date
     + Submit Task with No Task Name
+    
     + Late Tasks have Different Colors
         1. Hint if we wanted to grab the color of the card for "History Test" we can use `const historyCheck = screen.getByTestId(/History Test/i).style.background`
     + Delete Task
